@@ -3,7 +3,7 @@ package umc.study.domain;
 import jakarta.persistence.*;
 import lombok.*;
 import umc.study.domain.common.BaseEntity;
-import umc.study.domain.mapping.MemberAgree;
+import umc.study.domain.mapping.MemberAllowance;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,9 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
-public class Terms extends BaseEntity {
-
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+public class Allowance extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,11 +22,10 @@ public class Terms extends BaseEntity {
     private String title;
 
     @Column(nullable = false)
-    private String body;
+    private String description;
 
     private Boolean optional;
 
-    @OneToMany(mappedBy = "terms", cascade = CascadeType.ALL)
-    private List<MemberAgree> memberAgreeList = new ArrayList<>();
-
+    @OneToMany(mappedBy = "allowance", cascade = CascadeType.ALL)
+    private List<MemberAllowance> memberAllowanceList = new ArrayList<>();
 }
