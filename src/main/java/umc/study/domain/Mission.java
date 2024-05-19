@@ -33,4 +33,9 @@ public class Mission extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
+
+    public void setRestaurant(Restaurant restaurant) {
+        this.restaurant = restaurant;
+        restaurant.getMissionList().add(this);
+    }
 }
