@@ -11,6 +11,8 @@ import umc.study.repository.MissionRepository;
 import umc.study.repository.RestaurantRepository;
 import umc.study.web.dto.mission.MissionRequestDTO;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class RestaurantCommandServiceImpl implements RestaurantCommandService{
@@ -20,10 +22,8 @@ public class RestaurantCommandServiceImpl implements RestaurantCommandService{
     @Override
     public Mission addMission(Long restaurant_id, MissionRequestDTO.AddDto request){
         Mission mission = MissionConverter.toMission(request);
-        System.out.println("mission.getPoint() = " + mission.getPoint());
-        System.out.println("mission.getFoodPrice() = " + mission.getFoodPrice());
         Restaurant restaurant = restaurantRepository.findById(restaurant_id).orElseThrow(() -> new TempHandler(ErrorStatus.RESTAURANT_NOT_FOUND));
-        mission.setRestaurant(restaurant);
+
         return missionRepository.save(mission);
     }
 }
