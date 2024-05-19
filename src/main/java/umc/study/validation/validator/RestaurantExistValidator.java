@@ -5,26 +5,24 @@ import jakarta.validation.ConstraintValidatorContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import umc.study.apiPayload.code.status.ErrorStatus;
-import umc.study.repository.MissionRepository;
-import umc.study.validation.annotation.ExistMember;
-import umc.study.validation.annotation.ExistMission;
+import umc.study.repository.RestaurantRepository;
+import umc.study.validation.annotation.ExistRestaurant;
 
 @Component
 @RequiredArgsConstructor
-public class MissionExistValidator implements ConstraintValidator<ExistMission, Long> {
-    private final MissionRepository missionRepository;
-
+public class RestaurantExistValidator implements ConstraintValidator<ExistRestaurant, Long>{
+    private final RestaurantRepository restaurantRepository;
     @Override
-    public void initialize(ExistMission constraintAnnotation) {
+    public void initialize(ExistRestaurant constraintAnnotation) {
         ConstraintValidator.super.initialize(constraintAnnotation);
     }
 
     @Override
     public boolean isValid(Long value, ConstraintValidatorContext context) {
-        boolean isValid = missionRepository.existsById(value);
+        boolean isValid = restaurantRepository.existsById(value);
         if (!isValid){
             context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate(ErrorStatus.MISSION_NOT_FOUND.toString()).addConstraintViolation();
+            context.buildConstraintViolationWithTemplate(ErrorStatus.RESTAURANT_NOT_FOUND.toString()).addConstraintViolation();
         }
         return isValid;
     }

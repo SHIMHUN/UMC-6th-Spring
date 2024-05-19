@@ -9,6 +9,7 @@ import umc.study.domain.enums.Gender;
 import umc.study.domain.enums.MemberStatus;
 import umc.study.domain.enums.SocialType;
 import umc.study.domain.mapping.*;
+import umc.study.validation.annotation.ExistMember;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;

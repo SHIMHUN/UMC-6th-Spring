@@ -9,6 +9,8 @@ import umc.study.apiPayload.ApiResponse;
 import umc.study.converter.MemberMissionConverter;
 import umc.study.domain.mapping.MemberMission;
 import umc.study.service.MemberMission.MemberMissionCommandService;
+import umc.study.validation.annotation.ExistMember;
+import umc.study.validation.annotation.ExistMission;
 import umc.study.web.dto.membermission.MemberMissionResponseDTO;
 import umc.study.web.dto.mission.MissionResponseDTO;
 
@@ -19,8 +21,8 @@ public class MissionRestController {
     private final MemberMissionCommandService memberMissionCommandService;
 
     @PostMapping("/challenge")
-    public ApiResponse<MemberMissionResponseDTO.AddResultDTO> add(@RequestParam(value = "missionId", required = true) Long mission_id,
-                                                                  @RequestParam(value = "memberId", required = true) Long member_id){
+    public ApiResponse<MemberMissionResponseDTO.AddResultDTO> add(@ExistMission @RequestParam(value = "missionId", required = true) Long mission_id,
+                                                                  @ExistMember @RequestParam(value = "memberId", required = true) Long member_id){
         MemberMission memberMission = memberMissionCommandService.challengeMission(member_id, mission_id);
         return ApiResponse.onSuccess(MemberMissionConverter.toChallengeResultDTO(memberMission));
     }
